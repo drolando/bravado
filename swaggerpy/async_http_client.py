@@ -17,7 +17,6 @@ import crochet
 import six
 import twisted.internet.error
 import twisted.web.client
-from twisted.internet import reactor
 from twisted.internet.defer import Deferred
 from twisted.internet.protocol import Protocol
 from twisted.web.client import Agent
@@ -93,6 +92,7 @@ class AsynchronousHttpClient(http_client.HttpClient):
         :return: crochet EventualResult
         """
         finished_resp = Deferred()
+        reactor = crochet.get_reactor()
         agent = Agent(reactor)
         deferred = agent.request(**request_params)
 
